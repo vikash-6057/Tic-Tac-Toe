@@ -8,8 +8,10 @@ function App() {
   const [player, setPlayer] = useState("O");
   const [result, setResult] = useState({ winner: "none", state: "none" });
   useEffect(() => {
-    checkWinner();
+    // Here order will matter
+    // Always check Tie before Win
     checkTie();
+    checkWinner();
     if (player === 'X')
       setPlayer("O");
     else
@@ -46,7 +48,7 @@ function App() {
         }
       });
       if (isWinner) {
-        setResult({ winner: player, state: "Win" })
+        setResult({ winner: curPlayer, state: "Win" })
       }
     });
   }
@@ -57,7 +59,7 @@ function App() {
         filled = false
     })
     if (filled)
-      setResult({ winner: "No one", state: "Tie" })
+      setResult({ winner: "none", state: "Tie" })
   }
   const resetGame = () => {
     setBoard(["", "", "", "", "", "", "", "", ""]);
